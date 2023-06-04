@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mealmate/screen/ingredient.dart';
 import 'package:mealmate/screen/home.dart';
 import 'package:mealmate/screen/meal_recommend.dart';
@@ -11,7 +12,7 @@ class MealMateAPP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'MealMate',
       initialRoute: '/',
       routes: {
