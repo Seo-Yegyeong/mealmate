@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'ingredient.dart';
+import 'meal_recommend.dart';
+import 'menu_based.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,112 +12,76 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffFF7C33),
-      body: ListView(
+      body: SafeArea(
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/logo.png',
+                    width: 250,
+                  ),
+                  const Center(
+                    child: Text(
+                      'MEALMATE',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontFamily: 'Inter',
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  MenuButton(context, 1, 'Ingredient-based recipe'),
+                  MenuButton(context, 2, 'Menu-based recipes'),
+                  MenuButton(context, 3, 'Meal Recommendation'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget MenuButton(context, index, text) =>
+      Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SizedBox(height: 60.0),
-                Image.asset(
-                  'assets/logo.png',
-                  width: 300,
-                ),
-                const Center(
+          SizedBox(height: 10,),
+          SizedBox(
+            width: MediaQuery.of(context).size.width *0.9,
+            height: MediaQuery.of(context).size.width *0.25,
+            child: ElevatedButton(
+                  onPressed: () {
+                    switch (index) {
+                      case 1:
+                        Get.to(()=> const IngredientPage());
+                      case 2:
+                        Get.to(()=> const MenuBasedPage());
+                      case 3:
+                        Get.to(()=> const MealRecommendPage());
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
                   child: Text(
-                    'MEALMATE',
-                    style: TextStyle(
-                      fontSize: 40,
+                    '$text',
+                    style: const TextStyle(
+                      fontSize: 25,
+                      color: Colors.black,
                       fontFamily: 'Inter',
                       fontStyle: FontStyle.italic,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: 400,
-                  height: 100,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/ingredient');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                    ),
-                    child: const Text(
-                      'Ingredient-based recipe',
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.black,
-                        fontFamily: 'Inter',
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: 400,
-                  height: 100,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/menubased');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                    ),
-                    child: const Text(
-                      'Menu-based recipes',
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.black,
-                        fontFamily: 'Inter',
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: 400,
-                  height: 100,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/mealrecommend');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                    ),
-                    child: const Text(
-                      'Meal Recommendation',
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.black,
-                        fontFamily: 'Inter',
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 50,
-                )
-              ],
             ),
           ),
+          const SizedBox(height: 10),
         ],
-      ),
-    );
-  }
+      );
 }
