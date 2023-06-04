@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+const apiKey = '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';
+const apiUrl = 'https://api.openai.com/v1/completions';
+
 class IngredientPage extends StatefulWidget {
   const IngredientPage({super.key});
 
