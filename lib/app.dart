@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mealmate/home.dart';
-import 'package:mealmate/ingredient.dart';
-import 'package:mealmate/start.dart';
+import 'package:mealmate/screen/ingredient.dart';
+import 'package:mealmate/screen/home.dart';
+import 'package:mealmate/screen/meal_recommend.dart';
+import 'package:mealmate/screen/menu_based.dart';
+
+import 'package:mealmate/screen/start.dart';
 
 class MealMateAPP extends StatelessWidget {
   const MealMateAPP({Key? key}) : super(key: key);
@@ -14,6 +17,8 @@ class MealMateAPP extends StatelessWidget {
       routes: {
         '/home': (BuildContext context) => const HomePage(),
         '/ingredient': (BuildContext context) => const IngredientPage(),
+        '/menubased': (BuildContext context) => const MenuBasedPage(),
+        '/mealrecommend': (BuildContext context) => const MealRecommendPage(),
         '/': (BuildContext context) => const StartPage(),
       },
       theme: ThemeData.light(useMaterial3: true),
