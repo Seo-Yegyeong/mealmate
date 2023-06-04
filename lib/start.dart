@@ -4,10 +4,10 @@ class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
 
   @override
-  _StartPageState createState() => _StartPageState();
+  StartPageState createState() => StartPageState();
 }
 
-class _StartPageState extends State<StartPage> {
+class StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
