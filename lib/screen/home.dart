@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'chat_prompt.dart';
-import 'ingredient.dart';
-import 'meal_recommend.dart';
-import 'menu_based.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
