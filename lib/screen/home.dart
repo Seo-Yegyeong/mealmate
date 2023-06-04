@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'chat_prompt.dart';
 import 'ingredient.dart';
 import 'meal_recommend.dart';
 import 'menu_based.dart';
@@ -60,14 +61,7 @@ class _HomePageState extends State<HomePage> {
             height: MediaQuery.of(context).size.width *0.25,
             child: ElevatedButton(
                   onPressed: () {
-                    switch (index) {
-                      case 1:
-                        Get.to(()=> const IngredientPage());
-                      case 2:
-                        Get.to(()=> const MenuBasedPage());
-                      case 3:
-                        Get.to(()=> const MealRecommendPage());
-                    }
+                    Get.to(()=> ChatPromptPage(type: index));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
