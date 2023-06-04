@@ -89,7 +89,7 @@ class _NEWmenuState extends State<NEWmenu> {
                   String gptString = '';
                   await gptAnswer.then((String result) {
                     setState(() {
-                      gptString = result;
+                      gptString = result.trim();
                       print(gptString);
                     });
                   });

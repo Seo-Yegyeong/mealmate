@@ -100,8 +100,9 @@ class _NEWingreState extends State<NEWingre> {
                   String gptString = '';
                   await gptAnswer.then((String result) {
                     setState(() {
-                      gptString = result;
+                      gptString = result.trim();
                       print(gptString);
+                      print('here!');
                     });
                   });
                   chat.add(gptString);
