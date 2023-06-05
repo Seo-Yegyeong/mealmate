@@ -61,6 +61,45 @@ class _NEWmealState extends State<NEWmeal> {
             children: [
               Expanded(
                 child: TextField(
+                  textInputAction: TextInputAction.go,
+                  onSubmitted: (value) async {
+                    // ADD User CHAT
+                    String prompt = _usercontroller.text;
+                    if (_usercontroller.text != 'more') {
+                      prompt = "$prompt 에 해당되는 음식 메뉴 4개를 추천해줘";
+                    } else {
+                      prompt =
+                          "${chat[2]}를 제외하고 ${chat[1]} 에 해당되는 음식 메뉴 4개를 추천해줘.";
+                    }
+                    chat.add(_usercontroller.text);
+                    userOrGPT.add(true);
+                    ctrl.sink.add(_usercontroller.text);
+
+                    setState(() {
+                      _usercontroller.clear();
+                    });
+
+                    // ADD chatGPT CHAT
+                    Future<String> gptAnswer = generateText(prompt);
+                    String gptString = '';
+                    await gptAnswer.then((String result) {
+                      setState(() {
+                        gptString = result.trim();
+                        print(gptString);
+                      });
+                    });
+                    chat.add(gptString);
+                    userOrGPT.add(false);
+                    ctrl.sink.add(gptString);
+
+                    if (already != 1) {
+                      String more = "추가로 추천해드릴까요? \n더 추천을 원하시면 more 라고 입력해주세요.";
+                      chat.add(more);
+                      userOrGPT.add(false);
+                      ctrl.sink.add(more);
+                    }
+                    already = 1;
+                  },
                   maxLines: null,
                   controller: _usercontroller,
                   decoration: const InputDecoration(

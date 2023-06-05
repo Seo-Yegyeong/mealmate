@@ -61,6 +61,57 @@ class _NEWingreState extends State<NEWingre> {
             children: [
               Expanded(
                 child: TextField(
+                  textInputAction: TextInputAction.go,
+                  onSubmitted: (value) async {
+                    // ADD User CHAT
+                    String prompt = _usercontroller.text;
+                    if (_usercontroller.text != 'more') {
+                      if (already != 1) {
+                        prompt = "$prompt 이 재료들을 활용해서 만들 수 있는 요리 4가지 추천해줘.";
+                      } else {
+                        prompt = "$prompt 이 재료 이거 레시피 구체적으로 알려줘";
+                        already = 2;
+                      }
+                    } else {
+                      prompt =
+                          "${chat[2]}를 제외하고 ${chat[1]} 이 재료들을 활용해서 만들 수 있는 요리 4가지 더 알려줘.";
+                    }
+                    chat.add(_usercontroller.text);
+                    userOrGPT.add(true);
+                    ctrl.sink.add(_usercontroller.text);
+
+                    setState(() {
+                      _usercontroller.clear();
+                    });
+
+                    // ADD chatGPT CHAT
+                    Future<String> gptAnswer = generateText(prompt);
+                    String gptString = '';
+                    await gptAnswer.then((String result) {
+                      setState(() {
+                        gptString = result.trim();
+                        print(gptString);
+                      });
+                    });
+                    chat.add(gptString);
+                    userOrGPT.add(false);
+                    ctrl.sink.add(gptString);
+
+                    if (already != 2) {
+                      String more = '';
+                      if (already == 0) {
+                        more =
+                            "1) 구체적인 레시피를 알고 싶으시면 메뉴 이름을 입력해주세요!\n2) 다른 메뉴를 보고 싶으시면 more 라고 입력해주세요.";
+                      } else {
+                        more = "구체적인 레시피를 알고 싶으시면 메뉴 이름을 입력해주세요!";
+                      }
+                      chat.add(more);
+                      userOrGPT.add(false);
+                      ctrl.sink.add(more);
+                    }
+
+                    already = 1;
+                  },
                   maxLines: null,
                   controller: _usercontroller,
                   decoration: const InputDecoration(
@@ -102,7 +153,6 @@ class _NEWingreState extends State<NEWingre> {
                     setState(() {
                       gptString = result.trim();
                       print(gptString);
-                      print('here!');
                     });
                   });
                   chat.add(gptString);

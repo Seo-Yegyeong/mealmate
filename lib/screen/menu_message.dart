@@ -60,6 +60,37 @@ class _NEWmenuState extends State<NEWmenu> {
             children: [
               Expanded(
                 child: TextField(
+                  textInputAction: TextInputAction.go,
+                  onSubmitted: (value) async {
+                    // ADD User CHAT
+                    String prompt = _usercontroller.text;
+                    prompt = "$prompt 를 만들고 싶어. 필요한 재료랑 레시피 알려줘";
+                    chat.add(_usercontroller.text);
+                    userOrGPT.add(true);
+                    ctrl.sink.add(_usercontroller.text);
+
+                    setState(() {
+                      _usercontroller.clear();
+                    });
+
+                    // ADD chatGPT CHAT
+                    Future<String> gptAnswer = generateText(prompt);
+                    String gptString = '';
+                    await gptAnswer.then((String result) {
+                      setState(() {
+                        gptString = result.trim();
+                        print(gptString);
+                      });
+                    });
+                    chat.add(gptString);
+                    userOrGPT.add(false);
+                    ctrl.sink.add(gptString);
+
+                    String more = "다른 요리의 레시피를 원하시면 원하시는 요리의 이름을 입력해주세요.";
+                    chat.add(more);
+                    userOrGPT.add(false);
+                    ctrl.sink.add(more);
+                  },
                   maxLines: null,
                   controller: _usercontroller,
                   decoration: const InputDecoration(
